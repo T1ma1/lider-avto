@@ -26,7 +26,27 @@
 <!-- ИНТРО: фары загораются в темноте → свет → логотип → шторка вверх → машина заезжает в hero -->
 <div class="intro" id="intro" aria-hidden="true">
   <div class="intro-glow"></div>
-  <div class="intro-lights"><span class="hl l"></span><span class="hl r"></span></div>
+  <svg class="intro-eyes" viewBox="0 0 1000 300" aria-hidden="true">
+    <defs><filter id="ledGlow" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g class="eye eye-l" filter="url(#ledGlow)">
+      <g class="unit">
+        <path class="housing" d="M56 92 L456 204 L438 236 L270 228 L96 160 Z"/>
+        <path class="drl d1" pathLength="1" d="M60 96 L452 208 L430 236"/>
+        <path class="drl d2" pathLength="1" d="M118 132 L388 212"/>
+        <circle class="lens" cx="320" cy="210" r="9"/>
+        <circle class="lens" cx="368" cy="220" r="7.5"/>
+      </g>
+    </g>
+    <g class="eye eye-r" filter="url(#ledGlow)" transform="translate(1000 0) scale(-1 1)">
+      <g class="unit">
+        <path class="housing" d="M56 92 L456 204 L438 236 L270 228 L96 160 Z"/>
+        <path class="drl d1" pathLength="1" d="M60 96 L452 208 L430 236"/>
+        <path class="drl d2" pathLength="1" d="M118 132 L388 212"/>
+        <circle class="lens" cx="320" cy="210" r="9"/>
+        <circle class="lens" cx="368" cy="220" r="7.5"/>
+      </g>
+    </g>
+  </svg>
   <div class="intro-logo"><span class="logo-mark"></span><span><b>Лидер</b> <span>Авто</span></span></div>
   <div class="intro-line"></div>
 </div>

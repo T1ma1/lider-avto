@@ -805,3 +805,20 @@ html.intro-on body{overflow:hidden}
 /* пока идёт интро — сцена hero стоит на первом кадре, заезд начнётся после */
 html.intro-on .hero-car,html.intro-on .hero-car::after,html.intro-on .hero h1 .ln>span,html.intro-on .hero-row .lead,
 html.intro-on .hero-cta,html.intro-on .hero-stats,html.intro-on .hero-word{animation-play-state:paused}
+
+/* «злые» LED-фары: узкие, скошенные к центру; бровь загорается бегущим светом */
+.intro-eyes{position:absolute;left:50%;top:42%;width:min(820px,94vw);height:auto;transform:translate(-50%,-50%);overflow:visible}
+.intro-eyes .housing{fill:rgba(255,255,255,.015);stroke:rgba(220,230,245,.14);stroke-width:1.2;opacity:0;animation:hHouse 900ms 250ms ease-out forwards}
+.intro-eyes .drl{fill:none;stroke:#f3f7ff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.intro-eyes .d1{animation:drlRun 420ms 320ms cubic-bezier(.6,0,.2,1) forwards,drlFlick 380ms 760ms linear}
+.intro-eyes .d2{stroke-width:2.6;opacity:.85;animation:drlRun 380ms 700ms cubic-bezier(.6,0,.2,1) forwards}
+.intro-eyes .lens{fill:#ffffff;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3);animation:lensOn 500ms 980ms cubic-bezier(.2,.8,.2,1) forwards}
+.intro-eyes .lens+.lens{animation-delay:1060ms}
+@keyframes hHouse{to{opacity:1}}
+@keyframes drlRun{to{stroke-dashoffset:0}}
+@keyframes drlFlick{0%,100%{opacity:1}20%{opacity:.25}35%{opacity:1}55%{opacity:.5}70%{opacity:1}}
+@keyframes lensOn{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1.25)}100%{opacity:.95;transform:scale(1)}}
+.intro-glow{background:radial-gradient(closest-side,rgba(225,235,255,.16),rgba(201,166,107,.07) 40%,transparent 70%)}
+.intro.out .intro-eyes{transition:opacity 300ms ease;opacity:0}
+.intro-logo{top:calc(42% + clamp(78px,9vw,112px))}
+.intro-line{top:calc(42% + clamp(122px,13vw,164px))}

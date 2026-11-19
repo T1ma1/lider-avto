@@ -143,18 +143,10 @@ const root=document.documentElement;
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
 const smooth=t=>t*t*(3-2*t);
 
-// 1. Куда едем: пункт назначения меняется по буквам
-const DESTS=['в\u00a0Махачкале','на\u00a0Сулак','в\u00a0Дербент','в\u00a0горы','посуточно','на\u00a0месяц'];
-const dest=document.getElementById('dest'), heroEl=document.querySelector('.hero');
-const setDest=w=>{dest.innerHTML=[...w].map((c,i)=>`<span class="l" style="--i:${i}">${c}</span>`).join('')};
-setDest(DESTS[0]);
-let di=0, heroOn=true;
+// 1. Заголовок hero статичный: «Аренда авто в Махачкале»
+const heroEl=document.querySelector('.hero');
+let heroOn=true;
 new IntersectionObserver(([e])=>{heroOn=e.isIntersecting}).observe(heroEl);
-if(!REDUCED) setInterval(()=>{
-  if(!heroOn||document.hidden) return;
-  dest.classList.add('out');
-  setTimeout(()=>{di=(di+1)%DESTS.length;setDest(DESTS[di]);dest.classList.add('pre');dest.classList.remove('out');void dest.offsetWidth;dest.classList.remove('pre')},420);
-},2700);
 
 // 2. Серпантин под машиной: по нему к машине бежит свет фар; при прокрутке дорога выпрямляется
 const cv=document.getElementById('road'), ctx=cv.getContext('2d'), carEl=document.querySelector('.hero-car');
