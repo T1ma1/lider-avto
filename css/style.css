@@ -866,3 +866,28 @@ html.intro-on .hero-cta,html.intro-on .hero-stats,html.intro-on .hero-word{anima
   .intro-logo{bottom:22vh}
   .intro-line{bottom:calc(22vh - 22px)}
 }
+
+/* =====================================================================
+   Интро как на других сайтах: свечение → логотип прорисовывается →
+   буквы поднимаются → подпись → шторка вверх. ~2,4 с, клик — пропуск.
+   ===================================================================== */
+html.intro-on .intro,.intro.out{display:flex;align-items:center;justify-content:center;transform:none;transition:none;background:#0b0b0a}
+.intro::after{content:none}
+.intro.out{animation:introOut .9s var(--ease-io) forwards;pointer-events:none}
+.intro.out .intro__in{animation:introLift .9s var(--ease-io) forwards}
+.intro__in{position:relative;display:grid;justify-items:center;text-align:center;padding:0 24px}
+.intro__glow{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;margin:-60vmax 0 0 -60vmax;border-radius:50%;background:radial-gradient(closest-side,rgba(201,166,107,.22),rgba(201,166,107,0) 62%);opacity:0;transform:scale(.2);animation:introGlow 1.8s .7s var(--ease-out) forwards;pointer-events:none}
+.intro__mark{width:clamp(84px,12vw,118px);height:auto;overflow:visible}
+.intro__l{fill:none;stroke:var(--gold);stroke-width:3.5;stroke-dasharray:1;stroke-dashoffset:1;animation:introDraw .8s calc(.2s + var(--i) * .2s) var(--ease-io) forwards}
+.intro__word{margin:28px 0 0;font-weight:300;font-size:clamp(30px,6vw,56px);line-height:1;letter-spacing:.24em;padding-left:.24em;white-space:nowrap;color:var(--ink)}
+.intro__word span{display:inline-block;opacity:0;transform:translateY(20px);animation:introLetter .8s var(--ease-out) forwards;animation-delay:calc(.9s + var(--i) * 50ms)}
+.intro__word .g{color:var(--gold)}
+.intro__word .gap{width:.32em;opacity:1;transform:none;animation:none}
+.intro__tag{margin-top:18px;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);opacity:0;animation:introFade .8s 1.45s var(--ease-out) forwards}
+@keyframes introDraw{to{stroke-dashoffset:0}}
+@keyframes introLetter{to{opacity:1;transform:none}}
+@keyframes introFade{to{opacity:1}}
+@keyframes introGlow{to{opacity:1;transform:scale(1)}}
+@keyframes introOut{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
+@keyframes introLift{to{opacity:0;transform:translateY(-48px)}}
+@media (max-width:540px){.intro__tag{font-size:10.5px;letter-spacing:.18em}}

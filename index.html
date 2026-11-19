@@ -25,12 +25,15 @@
 
 <!-- ИНТРО: фары загораются в темноте → свет → логотип → шторка вверх → машина заезжает в hero -->
 <div class="intro" id="intro" aria-hidden="true">
-  <div class="intro-scene" id="introScene">
-    <picture class="i-off"><source media="(max-width:640px)" srcset="assets/img/intro-off-m.webp"><img src="assets/img/intro-off.webp" alt="" decoding="async" fetchpriority="high"></picture>
-    <picture class="i-lit" id="introLit"><source media="(max-width:640px)" srcset="assets/img/intro-lit-m.webp"><img src="assets/img/intro-lit.webp" alt="" decoding="async" fetchpriority="high"></picture>
+  <div class="intro__glow"></div>
+  <div class="intro__in">
+    <svg class="intro__mark" viewBox="0 0 100 100" aria-hidden="true">
+      <rect class="intro__l" pathLength="1" x="4" y="4" width="92" height="92" style="--i:0"/>
+      <path class="intro__l" pathLength="1" d="M36 26 V72 H70" style="--i:1"/>
+    </svg>
+    <p class="intro__word"><span style="--i:0">Л</span><span style="--i:1">И</span><span style="--i:2">Д</span><span style="--i:3">Е</span><span style="--i:4">Р</span><span class="gap"></span><span class="g" style="--i:6">А</span><span class="g" style="--i:7">В</span><span class="g" style="--i:8">Т</span><span class="g" style="--i:9">О</span></p>
+    <p class="intro__tag">Прокат автомобилей · Махачкала</p>
   </div>
-  <div class="intro-logo"><span class="logo-mark"></span><span><b>Лидер</b> <span>Авто</span></span></div>
-  <div class="intro-line"></div>
 </div>
 
 <!--

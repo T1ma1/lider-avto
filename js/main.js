@@ -305,36 +305,11 @@ function introEnd(){
   setTimeout(()=>introEl.remove(),900);
 }
 if(root.classList.contains('intro-on')){
-  // сцена: машина в темноте → фары вспыхивают и мигают → свет растекается по кузову → логотип → шторка
-  const lit=document.getElementById('introLit');
-  const imgs=[...introEl.querySelectorAll('img')];
-  let raf=0, timers=[];
-  const skip=()=>{timers.forEach(clearTimeout);cancelAnimationFrame(raf);introEnd()};
+  // логотип прорисовывается, буквы поднимаются, затем шторка — как на других сайтах
+  const tid=setTimeout(introEnd,2400);
+  const skip=()=>{clearTimeout(tid);introEnd()};
   introEl.addEventListener('pointerdown',skip,{once:true});
   addEventListener('keydown',skip,{once:true});
-  const ready=Promise.race([
-    Promise.all(imgs.map(i=>i.decode?i.decode().catch(()=>{}):Promise.resolve())),
-    new Promise(r=>setTimeout(()=>r('late'),1800))
-  ]);
-  ready.then(res=>{
-    if(!root.classList.contains('intro-on')) return;
-    if(res==='late'&&!imgs.every(i=>i.complete&&i.naturalWidth)){ introEnd(); return }  // кадры не успели — не держим сайт
-    introEl.classList.add('go');
-    const t0=performance.now();
-    // яркость светодиодов: вспышка и короткое мигание, как при запуске
-    const flick=[[0,0],[600,0],[640,1],[700,.15],[760,1],[830,.45],[900,1]];
-    const easeOut=x=>1-Math.pow(1-x,3);
-    (function tick(now){
-      const t=now-t0;
-      let a=1; for(let k=0;k<flick.length-1;k++){const [ta,va]=flick[k],[tb,vb]=flick[k+1]; if(t<tb){a=va+(vb-va)*Math.max(0,(t-ta)/(tb-ta));break}}
-      if(t<600) a=0;
-      const r=t<1100?1:1+13*easeOut(Math.min(1,(t-1100)/1000));   // свет растекается от фар
-      lit.style.setProperty('--a',a.toFixed(3)); lit.style.setProperty('--r',r.toFixed(3));
-      if(t>=2200&&!introEl.classList.contains('lit')) introEl.classList.add('lit');
-      if(t<2200) raf=requestAnimationFrame(tick);
-    })(t0);
-    timers.push(setTimeout(introEnd,3400));
-  });
 } else { introEl&&introEl.remove(); roadT0=0 }
 
 function start(){sizeRoad();layoutPins();onScene();if(REDUCED){drawRoad(0)}else requestAnimationFrame(frame)}
