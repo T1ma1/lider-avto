@@ -306,7 +306,7 @@ function introEnd(){
 }
 if(root.classList.contains('intro-on')){
   // логотип прорисовывается, буквы поднимаются, затем шторка — как на других сайтах
-  const tid=setTimeout(introEnd,2400);
+  const tid=setTimeout(introEnd,2950);
   const skip=()=>{clearTimeout(tid);introEnd()};
   introEl.addEventListener('pointerdown',skip,{once:true});
   addEventListener('keydown',skip,{once:true});
