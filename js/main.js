@@ -302,12 +302,11 @@ function frame(t){
   if(heroOn) drawRoad(t);
   requestAnimationFrame(frame);
 }
-// интро: один раз за визит; касание или клавиша — пропустить
+// интро: при каждой загрузке и обновлении страницы; касание или клавиша — пропустить
 let roadT0=-1;
 const introEl=document.getElementById('intro');
 function introEnd(){
   if(!root.classList.contains('intro-on')) return;
-  try{sessionStorage.setItem('la-intro','1')}catch(e){}
   introEl.classList.add('out');
   root.classList.remove('intro-on');            // hero оживает: машина заезжает
   roadT0=performance.now();
