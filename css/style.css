@@ -839,3 +839,30 @@ html.intro-on .hero-cta,html.intro-on .hero-stats,html.intro-on .hero-word{anima
 .intro-eyes .d2{animation:drlRun 380ms 620ms cubic-bezier(.55,0,.25,1) forwards,drlFlick 380ms 1010ms linear}
 @keyframes projOn{to{opacity:1}}
 .intro-eyes .proj{fill:url(#projG);filter:none}
+
+/* =====================================================================
+   Интро v2 — настоящий кадр: машина в темноте, фары зажигаются,
+   свет растекается по кузову. Управляется из main.js (--a, --r).
+   ===================================================================== */
+.intro-eyes,.intro-glow{display:none!important}
+.intro-scene{position:absolute;left:50%;top:50%;width:max(100vw,calc(100vh * 1.787));aspect-ratio:1344/752;transform:translate(-50%,-50%);opacity:0;transition:opacity 600ms var(--ease-out)}
+.intro.go .intro-scene{opacity:1}
+.intro-scene picture,.intro-scene img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.intro-scene img{object-fit:cover}
+.i-lit{--a:0;--r:1;opacity:var(--a);
+  -webkit-mask:radial-gradient(ellipse calc(9.5% * var(--r)) calc(7.5% * var(--r) * 1.787) at 44.8% 48.5%,#000 30%,transparent 100%),radial-gradient(ellipse calc(4.5% * var(--r)) calc(4.5% * var(--r) * 1.787) at 86.5% 49.5%,#000 30%,transparent 100%);
+  mask:radial-gradient(ellipse calc(9.5% * var(--r)) calc(7.5% * var(--r) * 1.787) at 44.8% 48.5%,#000 30%,transparent 100%),radial-gradient(ellipse calc(4.5% * var(--r)) calc(4.5% * var(--r) * 1.787) at 86.5% 49.5%,#000 30%,transparent 100%)}
+/* интро-текст запускается вместе со сценой */
+.intro .intro-logo,.intro .intro-line{animation:none}
+.intro.lit .intro-logo{animation:iLogo 900ms var(--ease-out) forwards}
+.intro.lit .intro-line{animation:iLine 800ms 150ms var(--ease-out) forwards}
+.intro-logo{top:auto;bottom:clamp(90px,16vh,170px)}
+.intro-line{top:auto;bottom:calc(clamp(90px,16vh,170px) - 22px)}
+.intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(5,5,5,.85) 100%),linear-gradient(to top,rgba(5,5,5,.9),transparent 38%)}
+.intro-logo,.intro-line{z-index:2}
+@media (max-width:640px){
+  .intro-scene{width:118vw;top:42%}
+  .intro::after{background:radial-gradient(100% 60% at 50% 42%,transparent 40%,rgba(5,5,5,.95) 85%),linear-gradient(to top,rgba(5,5,5,.95),transparent 45%)}
+  .intro-logo{bottom:22vh}
+  .intro-line{bottom:calc(22vh - 22px)}
+}
