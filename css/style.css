@@ -830,3 +830,12 @@ html.intro-on .hero-cta,html.intro-on .hero-stats,html.intro-on .hero-word{anima
 .intro-eyes .d2{stroke-width:4.5;opacity:1;animation:drlRun 520ms 470ms cubic-bezier(.55,0,.25,1) forwards,drlFlick 380ms 1010ms linear}
 .intro-eyes .d3{stroke-width:2.4;opacity:.75;animation:drlRun 420ms 900ms cubic-bezier(.55,0,.25,1) forwards}
 .intro-eyes .lens{display:none}
+
+/* фары по фото: две «L» — вертикальные стойки на внешнем краю и посередине, общая нижняя полоса к центру; над полосой голубые линзы */
+.intro-eyes .housing{fill:rgba(255,255,255,.01);stroke:rgba(220,230,245,.1)}
+.intro-eyes .proj{fill:rgba(110,150,255,.22);opacity:0;filter:blur(6px);animation:projOn 700ms 1050ms ease-out forwards}
+.intro-eyes .drl{stroke:#f5f8ff;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.intro-eyes .d1{animation:drlRun 600ms 320ms cubic-bezier(.55,0,.25,1) forwards,drlFlick 380ms 960ms linear}
+.intro-eyes .d2{animation:drlRun 380ms 620ms cubic-bezier(.55,0,.25,1) forwards,drlFlick 380ms 1010ms linear}
+@keyframes projOn{to{opacity:1}}
+.intro-eyes .proj{fill:url(#projG);filter:none}
