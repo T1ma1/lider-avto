@@ -181,7 +181,7 @@ function drawRoad(t){
   ctx.beginPath(); for(let x=0;x<=RW;x+=3){const y=roadY(x); x?ctx.lineTo(x,y):ctx.moveTo(x,y)}
   ctx.strokeStyle=g; ctx.lineWidth=1; ctx.stroke();
   if(REDUCED) return;
-  if(t>3200) return; const ph=t/3200; if(ph>.82) return;
+  const tt=t-roadT0; if(roadT0<0||tt>3200||tt<0) return; const ph=tt/3200; if(ph>.82) return;
   const px=smooth(ph/.82)*carX;
   for(let i=1;i<34;i++){const x=px-i*6; if(x<0)break; const a=(1-i/34);
     ctx.fillStyle=`rgba(230,207,159,${a*.45})`; ctx.beginPath(); ctx.arc(x,roadY(x),1.3*a+.3,0,7); ctx.fill()}
@@ -302,6 +302,24 @@ function frame(t){
   if(heroOn) drawRoad(t);
   requestAnimationFrame(frame);
 }
+// интро: один раз за визит; касание или клавиша — пропустить
+let roadT0=-1;
+const introEl=document.getElementById('intro');
+function introEnd(){
+  if(!root.classList.contains('intro-on')) return;
+  try{sessionStorage.setItem('la-intro','1')}catch(e){}
+  introEl.classList.add('out');
+  root.classList.remove('intro-on');            // hero оживает: машина заезжает
+  roadT0=performance.now();
+  setTimeout(()=>introEl.remove(),900);
+}
+if(root.classList.contains('intro-on')){
+  const tid=setTimeout(introEnd,2350);
+  const skip=()=>{clearTimeout(tid);introEnd()};
+  introEl.addEventListener('pointerdown',skip,{once:true});
+  addEventListener('keydown',skip,{once:true});
+} else { introEl&&introEl.remove(); roadT0=0 }
+
 function start(){sizeRoad();layoutPins();onScene();if(REDUCED){drawRoad(0)}else requestAnimationFrame(frame)}
 if(document.readyState==='complete') start(); else addEventListener('load',start);
 
