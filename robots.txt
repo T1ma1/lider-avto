@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+Disallow: /privacy.html
+Disallow: /consent.html
+
+# Sitemap: https://<домен>/sitemap.xml — добавить вместе с sitemap.xml после переезда на домен

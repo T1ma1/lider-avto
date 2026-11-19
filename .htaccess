@@ -1,0 +1,71 @@
+# Лидер Авто — статический сайт на Beget (Apache)
+DirectoryIndex index.html
+Options -Indexes
+AddDefaultCharset UTF-8
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml \
+      application/javascript application/json image/svg+xml application/xml
+  SetEnvIfNoCase Request_URI \.(?:jpe?g|png|webp|gif|woff2?|zip)$ no-gzip dont-vary
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp     .webp
+  AddType image/svg+xml  .svg
+  AddType font/woff2     .woff2
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html   "access plus 0 seconds"
+  ExpiresByType image/jpeg  "access plus 1 year"
+  ExpiresByType font/woff2  "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpe?g|png|webp|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # стили и скрипты без хэша в имени — браузер перепроверяет их, чтобы правки доходили сразу
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # сайт нельзя встроить в чужой iframe (кликджекинг)
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # «браузер запоминает https на год» — включить вместе с переходом на https, когда будет SSL
+  # Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=(), midi=(), display-capture=(), xr-spatial-tracking=()"
+  # CSP: всё своё, внешних встраиваний нет. Пока в режиме отчёта: нарушения видны
+  # в консоли браузера, ничего не блокируется. Через неделю без нарушений — убрать «-Report-Only».
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; upgrade-insecure-requests"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # скрытые файлы и папки (.git, .env, .DS_Store) не отдаём; .well-known нужен для выпуска сертификата
+  RewriteCond %{REQUEST_URI} (^|/)\.(?!well-known/)
+  RewriteRule ^ - [F,L]
+
+  # Переход на https ВКЛЮЧАТЬ ТОЛЬКО ПОСЛЕ выпуска SSL для домена в панели Beget
+  # (проверка: https://<домен> открывается без предупреждения). Без сертификата этот
+  # переход делает сайт недоступным. Чтобы включить — убрать «# » в трёх строках ниже.
+  # RewriteCond %{HTTPS} !=on
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# отдельная лёгкая страница 404 вместо главной на каждый запрос сканеров
+ErrorDocument 404 /404.html
+
+# исходники и служебные файлы, если вдруг попадут в webroot, наружу не отдаются
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.(md|py|sh|sql|log|bak|zip|yml|yaml|ini|env)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
