@@ -1,4 +1,4 @@
-# Лидер Авто — статический сайт на Beget (Apache)
+# ЛАЙТ — статический сайт на Beget (Apache)
 DirectoryIndex index.html
 Options -Indexes
 AddDefaultCharset UTF-8

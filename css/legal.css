@@ -1,5 +1,5 @@
-/* Лидер Авто — юридические страницы */
-:root{--bg:#0b0b0a;--paper:#f3efe7;--ink:#1a1915;--gold:#c9a66b;--gold-deep:#8a6f43;--line:#ddd6c8}
+/* ЛАЙТ — юридические страницы */
+:root{--bg:#14060a;--paper:#f3efe7;--ink:#1a1915;--gold:#9ce3f6;--gold-deep:#8c1d35;--line:#ddd6c8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Onest',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
 .top{background:var(--bg);padding:18px max(20px,4vw)}
