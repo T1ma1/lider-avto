@@ -1,11 +1,11 @@
 /* Автопрокат «ЛАЙТ» */
 const PHONE_WA='79898888854';
-// Цены — из сообщения владельца (₽ в сутки). Фото: *-1/-2 — ИИ (Higgsfield), *-f — вырезки из флаера (временно).
+// Цены — из сообщения владельца (₽ в сутки). Фото: первое — ИИ-обложка (Higgsfield), дальше — настоящие (*-f с флаера; живые фото от владельца — сюда же).
 const CARS=[
-  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-1','granta-2','granta-f']},
+  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-1','granta-f']},
   {id:'polo', name:'Volkswagen Polo', sub:'Лифтбек', price:2500, photos:['polo-2']},
-  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-f','solaris-2']},
-  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-f','rio-2']},
+  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-2','solaris-f']},
+  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-2','rio-f']},
   {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-f']},
   {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-f']},
   {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-f']},
