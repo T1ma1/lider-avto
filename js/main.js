@@ -1,21 +1,21 @@
 /* Автопрокат «ЛАЙТ» */
 const PHONE_WA='79898888854';
-// Цены — из сообщения владельца (₽ в сутки). Фото: первое — ИИ-обложка (Higgsfield), дальше — настоящие (*-f с флаера; живые фото от владельца — сюда же).
+// Цены — из сообщения владельца (₽ в сутки). Фото: первое — ИИ-обложка (<id>-1, Higgsfield), дальше — настоящие фото модели (<id>-rN, Wikimedia Commons, авторы в credits.html).
 const CARS=[
-  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-1','granta-f']},
-  {id:'polo', name:'Volkswagen Polo', sub:'Лифтбек', price:2500, photos:['polo-2']},
-  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-2','solaris-f']},
-  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-2','rio-f']},
-  {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-f']},
-  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-f']},
-  {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-f']},
-  {id:'gac', name:'GAC', sub:'Кроссовер', price:8000, photos:['gac-f']},
-  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-f']},
+  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-1','granta-r1','granta-r2','granta-r3']},
+  {id:'polo', name:'Volkswagen Polo', sub:'Лифтбек', price:2500, photos:['polo-2','polo-r1','polo-r2','polo-r3']},
+  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-2','solaris-r1']},
+  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-2','rio-r1','rio-r2']},
+  {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-r1','elantra-r2','elantra-r3']},
+  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-r1','changan-r2','changan-r3']},
+  {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-r1','camry-r2']},
+  {id:'gac', name:'GAC', sub:'Кроссовер', price:8000, photos:['gac-r1','gac-r2','gac-r3']},
+  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-r1','li6-r2','li6-r3','li6-r4']},
 ];
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>n.toLocaleString('ru-RU');
 const src=p=>`assets/img/cars/${p}.webp`;
-const isAI=p=>!p.endsWith('-f');
+const isAI=p=>!p.endsWith('-f');   // вырезки с флаера (*-f) — без обрезки
 
 // галерея: листается пальцем/колёсиком (scroll-snap), точки, стрелки, счётчик
 function gallery(el,car,big){
