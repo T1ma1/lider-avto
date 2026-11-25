@@ -79,10 +79,6 @@ h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:10px}
 .ic svg{width:22px;height:22px;fill:none;stroke:var(--cyan);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* шаги */
-.steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:s;margin-top:22px}
-.steps li{counter-increment:s;border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:6px}
-.steps li::before{content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--burg);color:var(--ink);font-weight:600;display:grid;place-items:center;margin-bottom:8px}
-.steps b{color:var(--ink);font-size:18px;font-weight:600}
 
 /* контакты */
 .sec-cta{background:radial-gradient(70% 100% at 50% 0%,rgba(141,29,53,.5),transparent 70%)}
@@ -126,7 +122,6 @@ h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:10px}
   .menu{display:none}
   .hero-grid{grid-template-columns:1fr}
   .hero-mark{order:-1}
-  .steps{grid-template-columns:1fr}
 }
 @media (max-width:600px){
   body{padding-bottom:76px}
@@ -238,3 +233,28 @@ html.js .feats.in .ft-gear .knob,html:not(.js) .ft-gear .knob{opacity:1}
 @keyframes shift{0%,8%{transform:translate(0,0)}20%,30%{transform:translate(0,14px)}38%{transform:translate(0,7px)}46%{transform:translate(6px,7px)}56%,66%{transform:translate(6px,0)}74%{transform:translate(6px,7px)}82%{transform:translate(0,7px)}92%,100%{transform:translate(0,0)}}
 @keyframes twinkle{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.8);opacity:.6}}
 @media (prefers-reduced-motion:reduce){html.js .feats .ic svg [pathLength]{stroke-dashoffset:0}.ft-gear .knob{opacity:1}}
+
+/* ===== «Как арендовать»: маршрут — линия заполняется при прокрутке, шаги загораются ===== */
+.route{list-style:none;position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:34px}
+.st{display:flex;flex-direction:column;gap:18px;position:relative;z-index:1}
+.st-node{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:1px solid rgba(156,227,246,.18);
+  transition:background .7s var(--ease),border-color .7s var(--ease),box-shadow .7s var(--ease)}
+.st-node svg{width:24px;height:24px;fill:none;stroke:var(--ash);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.6;transition:stroke .7s var(--ease),opacity .7s var(--ease),transform .7s var(--ease)}
+.st.on .st-node{background:radial-gradient(circle at 35% 30%,var(--burg2),var(--burg));border-color:rgba(156,227,246,.55);
+  box-shadow:0 0 0 6px rgba(141,29,53,.22),0 0 28px rgba(156,227,246,.22)}
+.st.on .st-node svg{stroke:var(--cyan);opacity:1;transform:scale(1.04)}
+.st-t small{display:block;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);opacity:.55;margin-bottom:8px;transition:opacity .7s var(--ease)}
+.st.on .st-t small{opacity:1}
+.st-t b{display:block;color:var(--ink);font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+.st-t span{color:var(--ash);opacity:.8}
+.route-rail{position:absolute;z-index:0;left:var(--rx,28px);top:var(--ry,28px);width:var(--rw,1px);height:var(--rh,1px);background:rgba(156,227,246,.14);pointer-events:none}
+.route-rail i{position:absolute;inset:0;background:linear-gradient(var(--rdir,90deg),rgba(156,227,246,.35),var(--cyan));transform-origin:0 0;transform:scaleX(var(--p,0))}
+.route.vert .route-rail i{transform:scaleY(var(--p,0))}
+@media (max-width:760px){
+  .route{grid-template-columns:1fr;gap:0}
+  .st{display:grid;grid-template-columns:56px 1fr;gap:20px;padding-bottom:38px}
+  .st:nth-last-child(2){padding-bottom:0}
+  .st-t{padding-top:6px}
+  .st-t b{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){.route-rail i{transform:none!important}}

@@ -95,3 +95,30 @@ if('IntersectionObserver' in window){
 
 // мягкий свет за курсором на карточках «В каждой машине»
 document.querySelectorAll('.ft').forEach(el=>el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')}));
+
+// маршрут «Как арендовать»: линия между шагами заполняется при прокрутке, шаги загораются
+(()=>{
+  const ol=document.querySelector('.route'); if(!ol) return;
+  const steps=[...ol.querySelectorAll('.st')], nodes=steps.map(s=>s.querySelector('.st-node')), rail=ol.querySelector('.route-rail');
+  let vert=false, a=0, z=0;
+  const pos=n=>{let x=0,y=0,e=n;while(e&&e!==ol){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return{x:x+n.offsetWidth/2,y:y+n.offsetHeight/2}};
+  function layout(){
+    const p0=pos(nodes[0]), p1=pos(nodes[nodes.length-1]); vert=Math.abs(p1.x-p0.x)<4; ol.classList.toggle('vert',vert);
+    const s=ol.style;
+    if(vert){s.setProperty('--rx',p0.x-.5+'px');s.setProperty('--ry',p0.y+'px');s.setProperty('--rw','1px');s.setProperty('--rh',p1.y-p0.y+'px');s.setProperty('--rdir','180deg')}
+    else{s.setProperty('--rx',p0.x+'px');s.setProperty('--ry',p0.y-.5+'px');s.setProperty('--rw',p1.x-p0.x+'px');s.setProperty('--rh','1px');s.setProperty('--rdir','90deg')}
+    a=p0.y; z=p1.y; tick();
+  }
+  function tick(){
+    const r=ol.getBoundingClientRect(), vh=innerHeight;
+    let p;
+    if(vert){const anchor=vh*.62; p=(anchor-(r.top+a))/((z-a)||1)}
+    else{const y=r.top+a; p=(vh*.78-y)/(vh*.38)}
+    p=Math.max(0,Math.min(1,p)); ol.style.setProperty('--p',p.toFixed(4));
+    steps.forEach((s,i)=>s.classList.toggle('on',p>=i/(steps.length-1)-.02));
+  }
+  let raf=0; const onScroll=()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;tick()})};
+  if(REDUCED){steps.forEach(s=>s.classList.add('on'));return}
+  addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',layout);
+  if(document.fonts) document.fonts.ready.then(layout); layout();
+})();
