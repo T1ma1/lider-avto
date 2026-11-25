@@ -30,8 +30,8 @@ function gallery(el,car,big){
 
 // карточки автопарка
 const list=document.getElementById('cars');
-list.innerHTML=CARS.map(c=>`
-  <article class="car" data-id="${c.id}" tabindex="0" aria-label="${c.name}, ${fmt(c.price)} рублей в сутки — подробнее">
+list.innerHTML=CARS.map((c,k)=>`
+  <article class="car" style="--rd:${(k%3)*90}ms" data-id="${c.id}" tabindex="0" aria-label="${c.name}, ${fmt(c.price)} рублей в сутки — подробнее">
     <div class="gal"></div>
     <div class="car-body">
       <div><h3>${c.name}</h3><small>${c.sub}</small></div>
@@ -74,7 +74,7 @@ function introEnd(){
   setTimeout(()=>intro.remove(),950);
 }
 if(root.classList.contains('intro-on')){
-  const t=setTimeout(introEnd,2500);
+  const t=location.hash==='#hold'?0:setTimeout(introEnd,2900);
   const skip=()=>{clearTimeout(t);introEnd()};
   intro.addEventListener('pointerdown',skip,{once:true});
   addEventListener('keydown',skip,{once:true});
@@ -85,3 +85,13 @@ document.getElementById('yr').textContent=new Date().getFullYear();
 // нижняя панель на телефоне — когда кнопки первого экрана ушли с экрана
 const dock=document.querySelector('.dock'), heroCta=document.querySelector('.hero .cta');
 new IntersectionObserver(([e])=>dock.classList.toggle('show',!e.isIntersecting&&e.boundingClientRect.top<0)).observe(heroCta);
+
+// тихое появление блоков при прокрутке (один раз)
+const rvEls=document.querySelectorAll('.rv,.rv-kids,.car');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.12});
+  rvEls.forEach(el=>io.observe(el));
+} else rvEls.forEach(el=>el.classList.add('in'));
+
+// мягкий свет за курсором на карточках «В каждой машине»
+document.querySelectorAll('.ft').forEach(el=>el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')}));
