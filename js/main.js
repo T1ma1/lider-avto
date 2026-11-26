@@ -1,16 +1,18 @@
 /* Автопрокат «ЛАЙТ» */
 const PHONE_WA='79898888854';
-// Цены — из сообщения владельца (₽ в сутки). Фото: настоящие фото этих моделей с Wikimedia Commons — серия одной машины на модель (<id>-N.webp), авторы в credits.html.
+// Цены — из сообщения владельца (₽ в сутки); price:null — цену не дали, показываем «по звонку».
+// Фото: <id>-0 — обложка от автопроката (с логотипом «ЛАЙТ», 26.11); дальше — настоящие фото этих моделей с Wikimedia Commons (авторы в credits.html).
 const CARS=[
-  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-1','granta-2']},
-  {id:'polo', name:'Volkswagen Polo', sub:'Седан', price:2500, photos:['polo-1','polo-2','polo-3']},
-  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-1','solaris-2']},
-  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-1','rio-2']},
-  {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-1','elantra-2','elantra-3']},
-  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-1','changan-2']},
-  {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-1','camry-2','camry-3']},
-  {id:'gac', name:'GAC', sub:'Кроссовер', price:8000, photos:['gac-1','gac-2','gac-3']},
-  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-1','li6-2','li6-3']},
+  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-0','granta-1','granta-2']},
+  {id:'polo', name:'Volkswagen Polo', sub:'Седан', price:2500, photos:['polo-0','polo-1','polo-2','polo-3']},
+  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-0','solaris-1','solaris-2']},
+  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-0','rio-1','rio-2']},
+  {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-0','elantra-1','elantra-2','elantra-3']},
+  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-0','changan-1','changan-2']},
+  {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-0','camry-1','camry-2','camry-3']},
+  {id:'gac', name:'GAC S7', sub:'Кроссовер', price:8000, photos:['gac-0','gac-01']},
+  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-0','li6-1','li6-2','li6-3']},
+  {id:'lc200', name:'Toyota Land Cruiser 200', sub:'Внедорожник', price:null, photos:['lc200-0']},
 ];
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>n.toLocaleString('ru-RU');
@@ -31,11 +33,11 @@ function gallery(el,car,big){
 // карточки автопарка
 const list=document.getElementById('cars');
 list.innerHTML=CARS.map((c,k)=>`
-  <article class="car" style="--rd:${(k%3)*90}ms" data-id="${c.id}" tabindex="0" aria-label="${c.name}, ${fmt(c.price)} рублей в сутки — подробнее">
+  <article class="car" style="--rd:${(k%3)*90}ms" data-id="${c.id}" tabindex="0" aria-label="${c.name}, ${c.price?fmt(c.price)+' рублей в сутки':'цена по звонку'} — подробнее">
     <div class="gal"></div>
     <div class="car-body">
       <div><h3>${c.name}</h3><small>${c.sub}</small></div>
-      <div class="car-price"><b>${fmt(c.price)} ₽</b><span>в сутки</span></div>
+      <div class="car-price">${c.price?`<b>${fmt(c.price)} ₽</b><span>в сутки</span>`:`<b class="ask">Цена</b><span>по звонку</span>`}</div>
     </div>
     <button class="car-more" type="button">Подробнее</button>
   </article>`).join('');
@@ -56,8 +58,8 @@ function openSheet(car){
   gallery(document.getElementById('sheetGal'),car,true);
   document.getElementById('sheetName').textContent=car.name;
   document.getElementById('sheetSub').textContent=car.sub;
-  document.getElementById('sheetPrice').textContent=fmt(car.price);
-  document.getElementById('sheetWa').href=`https://wa.me/${PHONE_WA}?text=${encodeURIComponent(`Здравствуйте! Хочу арендовать ${car.name} (${fmt(car.price)} ₽/сутки).`)}`;
+  document.getElementById('sheetPriceP').innerHTML=car.price?`<b>${fmt(car.price)}</b> ₽ / сутки`:'<b>Цена — по звонку</b>';
+  document.getElementById('sheetWa').href=`https://wa.me/${PHONE_WA}?text=${encodeURIComponent(`Здравствуйте! Хочу арендовать ${car.name}${car.price?` (${fmt(car.price)} ₽/сутки)`:''}.`)}`;
   if(sheet.showModal) sheet.showModal(); else sheet.setAttribute('open','');
   document.body.style.overflow='hidden';
 }
