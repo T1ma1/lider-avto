@@ -60,7 +60,9 @@ h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:10px}
 
 /* галерея: листается пальцем (scroll-snap), точки и стрелки */
 .gal{position:relative;background:radial-gradient(90% 80% at 50% 40%,#3a0c18,#14060a)}
-.gal-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.gal-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
+.gal-track.one{overflow:hidden;touch-action:auto}
+.gal-track img{display:block}
 .gal-track::-webkit-scrollbar{display:none}
 .gal-track img{flex:0 0 100%;width:100%;aspect-ratio:4/3;object-fit:contain;scroll-snap-align:center;user-select:none;-webkit-user-drag:none}
 .gal-track img.cover{object-fit:cover}

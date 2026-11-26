@@ -20,7 +20,7 @@ const src=p=>`assets/img/cars/${p}.webp`;
 
 // галерея: листается пальцем/колёсиком (scroll-snap), точки, стрелки, счётчик
 function gallery(el,car,big){
-  el.innerHTML=`<div class="gal-track">${car.photos.map((p,i)=>`<img src="${src(p)}" alt="${car.name} — фото ${i+1}" loading="${big||i?'lazy':'eager'}" class="${big?'':'cover'}" draggable="false">`).join('')}</div>`+
+  el.innerHTML=`<div class="gal-track${car.photos.length>1?"":" one"}">${car.photos.map((p,i)=>`<img src="${src(p)}" alt="${car.name} — фото ${i+1}" loading="${big||i?'lazy':'eager'}" class="${big?'':'cover'}" draggable="false">`).join('')}</div>`+
     (car.photos.length>1?`<div class="gal-dots">${car.photos.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div><button class="gal-arr l" aria-label="Предыдущее фото">‹</button><button class="gal-arr r" aria-label="Следующее фото">›</button><span class="gal-n">1/${car.photos.length}</span>`:'');
   const tr=el.querySelector('.gal-track'), dots=[...el.querySelectorAll('.gal-dots i')], n=el.querySelector('.gal-n');
   const idx=()=>Math.round(tr.scrollLeft/tr.clientWidth);
