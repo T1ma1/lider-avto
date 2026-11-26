@@ -1,17 +1,17 @@
 /* Автопрокат «ЛАЙТ» */
 const PHONE_WA='79898888854';
 // Цены — из сообщения владельца (₽ в сутки); price:null — цену не дали, показываем «по звонку».
-// Фото: <id>-0 — обложка от автопроката (с логотипом «ЛАЙТ», 26.11); дальше — настоящие фото этих моделей с Wikimedia Commons (авторы в credits.html).
+// Фото: только картинки от автопроката (<id>-0, у GAC ещё gac-01), с логотипом «ЛАЙТ». Фото с Commons убраны по просьбе 26.11.
 const CARS=[
-  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-0','granta-1','granta-2']},
-  {id:'polo', name:'Volkswagen Polo', sub:'Седан', price:2500, photos:['polo-0','polo-1','polo-2','polo-3']},
-  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-0','solaris-1','solaris-2']},
-  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-0','rio-1','rio-2']},
-  {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-0','elantra-1','elantra-2','elantra-3']},
-  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-0','changan-1','changan-2']},
-  {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-0','camry-1','camry-2','camry-3']},
+  {id:'granta', name:'Lada Granta', sub:'Седан', price:1800, photos:['granta-0']},
+  {id:'polo', name:'Volkswagen Polo', sub:'Седан', price:2500, photos:['polo-0']},
+  {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-0']},
+  {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-0']},
+  {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-0']},
+  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-0']},
+  {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-0']},
   {id:'gac', name:'GAC S7', sub:'Кроссовер', price:8000, photos:['gac-0','gac-01']},
-  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-0','li6-1','li6-2','li6-3']},
+  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-0']},
   {id:'lc200', name:'Toyota Land Cruiser 200', sub:'Внедорожник', price:null, photos:['lc200-0']},
 ];
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
