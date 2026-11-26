@@ -93,7 +93,7 @@ if('IntersectionObserver' in window){
   rvEls.forEach(el=>io.observe(el));
 } else rvEls.forEach(el=>el.classList.add('in'));
 
-// мягкий свет за курсором на карточках «В каждой машине»
+// мягкий свет за курсором на карточках «Почему «ЛАЙТ»»
 document.querySelectorAll('.ft').forEach(el=>el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')}));
 
 // маршрут «Как арендовать»: линия между шагами заполняется при прокрутке, шаги загораются

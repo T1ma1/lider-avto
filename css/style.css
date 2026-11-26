@@ -122,6 +122,9 @@ h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:10px}
   .menu{display:none}
   .hero-grid{grid-template-columns:1fr}
   .hero-mark{order:-1}
+  .hero-t{text-align:center}
+  .hero .lead{margin-inline:auto}
+  .hero .cta{justify-content:center}
 }
 @media (max-width:600px){
   body{padding-bottom:76px}
@@ -188,7 +191,7 @@ html.intro-on .intro,.intro.out{display:flex;position:fixed;inset:0;z-index:300;
 .hero-t>:nth-child(2){--d:1}.hero-t>:nth-child(3){--d:2}.hero-t>:nth-child(4){--d:3}
 @keyframes heroUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 html.intro-on .hero-t>*,html.intro-on .hero-mark svg,html.intro-on .hm-sheen{animation-play-state:paused}
-@media (max-width:760px){.hero-mark svg{max-width:210px;margin:0}}
+@media (max-width:760px){.hero-mark svg{max-width:210px;margin:0 auto}}
 
 /* ===== Тихое появление при прокрутке ===== */
 html.js .rv,html.js .rv-kids>*,html.js .car{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease),border-color .2s ease;transition-delay:var(--rd,0ms)}
@@ -217,22 +220,22 @@ html.js .rv-kids>:nth-child(2){--rd:90ms}html.js .rv-kids>:nth-child(3){--rd:180
 .ft .ic svg [pathLength]{stroke-dasharray:1;stroke-dashoffset:0}
 html.js .feats .ic svg [pathLength]{stroke-dashoffset:1;transition:stroke-dashoffset 1.6s var(--ease-io);transition-delay:calc(var(--rd,0ms) + 250ms)}
 html.js .feats.in .ic svg [pathLength]{stroke-dashoffset:0}
-.ft-gear .knob{fill:var(--cyan);stroke:none;opacity:0;transition:opacity .4s var(--ease) calc(var(--rd,0ms) + 1.2s)}
-html.js .feats.in .ft-gear .knob,html:not(.js) .ft-gear .knob{opacity:1}
+.ic-num b{font-size:15px;font-weight:700;letter-spacing:-.02em;color:var(--cyan);font-variant-numeric:tabular-nums}
+.ft-del .route{stroke-dasharray:1;opacity:.55}
 .ft .ic{transition:background-color .4s var(--ease)}
 @media (hover:hover) and (pointer:fine){
   .ft:hover .ic{background:rgba(156,227,246,.16)}
   .ft-gas:hover .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick 1.1s ease-in-out infinite}
-  .ft-gear:hover .knob{animation:shift 2.4s var(--ease-io) infinite}
-  .ft-snow .flake{transform-box:fill-box;transform-origin:50% 50%;transition:transform 1.4s var(--ease)}
-  .ft-snow:hover .flake{transform:rotate(60deg)}
+  .ft-del:hover .pin{transform-box:fill-box;transform-origin:50% 100%;animation:hop 1.3s var(--ease-io) infinite}
+  .ft-fleet .ic-num b{display:inline-block;transition:transform .5s var(--ease)}
+  .ft-fleet:hover .ic-num b{transform:scale(1.12)}
   .ft-clean:hover .sp1,.ft-clean:hover .sp2{transform-box:fill-box;transform-origin:50% 50%;animation:twinkle 1.6s ease-in-out infinite}
   .ft-clean:hover .sp2{animation-delay:.4s}
 }
 @keyframes flick{0%,100%{transform:scale(1,1)}35%{transform:scale(.94,1.07)}70%{transform:scale(1.04,.96)}}
-@keyframes shift{0%,8%{transform:translate(0,0)}20%,30%{transform:translate(0,14px)}38%{transform:translate(0,7px)}46%{transform:translate(6px,7px)}56%,66%{transform:translate(6px,0)}74%{transform:translate(6px,7px)}82%{transform:translate(0,7px)}92%,100%{transform:translate(0,0)}}
+@keyframes hop{0%,60%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}45%{transform:translateY(0) scale(1.06,.94)}}
 @keyframes twinkle{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.8);opacity:.6}}
-@media (prefers-reduced-motion:reduce){html.js .feats .ic svg [pathLength]{stroke-dashoffset:0}.ft-gear .knob{opacity:1}}
+@media (prefers-reduced-motion:reduce){html.js .feats .ic svg [pathLength]{stroke-dashoffset:0}}
 
 /* ===== «Как арендовать»: маршрут — линия заполняется при прокрутке, шаги загораются ===== */
 .route{list-style:none;position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:34px}
