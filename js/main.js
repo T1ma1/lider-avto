@@ -1,5 +1,6 @@
 /* Автопрокат «ЛАЙТ» */
 const PHONE_WA='79898888854';
+// noGas — машина не на газу (сказал Тамик 27.11: Li, Land Cruiser, GAC, Changan).
 // Цены — из сообщения владельца (₽ в сутки); price:null — цену не дали, показываем «по звонку».
 // Фото: только картинки от автопроката (<id>-0, у GAC ещё gac-01), с логотипом «ЛАЙТ». Фото с Commons убраны по просьбе 26.11.
 const CARS=[
@@ -8,11 +9,11 @@ const CARS=[
   {id:'solaris', name:'Hyundai Solaris', sub:'Седан', price:2700, photos:['solaris-0']},
   {id:'rio', name:'Kia Rio', sub:'Седан, 2022', price:2800, photos:['rio-0']},
   {id:'elantra', name:'Hyundai Elantra', sub:'Седан, 2021', price:3500, photos:['elantra-0']},
-  {id:'changan', name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-0']},
+  {id:'changan', noGas:true, name:'Changan UNI-Z', sub:'Кроссовер', price:4500, photos:['changan-0']},
   {id:'camry', name:'Toyota Camry 55', sub:'Седан', price:4500, photos:['camry-0']},
-  {id:'gac', name:'GAC S7', sub:'Кроссовер', price:8000, photos:['gac-0','gac-01']},
-  {id:'li6', name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-0']},
-  {id:'lc200', name:'Toyota Land Cruiser 200', sub:'Внедорожник', price:null, photos:['lc200-0']},
+  {id:'gac', noGas:true, name:'GAC S7', sub:'Кроссовер', price:8000, photos:['gac-0','gac-01']},
+  {id:'li6', noGas:true, name:'Li Auto L6', sub:'Кроссовер', price:10000, photos:['li6-0']},
+  {id:'lc200', noGas:true, name:'Toyota Land Cruiser 200', sub:'Внедорожник', price:null, photos:['lc200-0']},
 ];
 const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fmt=n=>n.toLocaleString('ru-RU');
@@ -58,6 +59,7 @@ function openSheet(car){
   gallery(document.getElementById('sheetGal'),car,true);
   document.getElementById('sheetName').textContent=car.name;
   document.getElementById('sheetSub').textContent=car.sub;
+  document.getElementById('sheetGas').hidden=!!car.noGas;
   document.getElementById('sheetPriceP').innerHTML=car.price?`<b>${fmt(car.price)}</b> ₽ / сутки`:'<b>Цена — по звонку</b>';
   document.getElementById('sheetWa').href=`https://wa.me/${PHONE_WA}?text=${encodeURIComponent(`Здравствуйте! Хочу арендовать ${car.name}${car.price?` (${fmt(car.price)} ₽/сутки)`:''}.`)}`;
   if(sheet.showModal) sheet.showModal(); else sheet.setAttribute('open','');
