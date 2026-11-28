@@ -68,11 +68,16 @@ function openSheet(car){
   document.getElementById('sheetSpecs').innerHTML=car.spec.map((v,i)=>`<li><svg viewBox="0 0 24 24" aria-hidden="true">${SI[i]}</svg><span><small>${SL[i]}</small>${v}</span></li>`).join('');
   document.getElementById('sheetPriceP').innerHTML=car.price?`<b>${fmt(car.price)}</b> ₽ / сутки`:'<b>Цена — по звонку</b>';
   document.getElementById('sheetWa').href=`https://wa.me/${PHONE_WA}?text=${encodeURIComponent(`Здравствуйте! Хочу арендовать ${car.name}${car.price?` (${fmt(car.price)} ₽/сутки)`:''}.`)}`;
+  lockScroll();
   if(sheet.showModal) sheet.showModal(); else sheet.setAttribute('open','');
-  document.body.style.overflow='hidden';
+  sheet.scrollTop=0;
 }
+// страница под окном не двигается (на iPhone одного overflow:hidden мало — фиксируем body и запоминаем позицию)
+let lockY=0;
+function lockScroll(){lockY=scrollY;document.body.style.top=`-${lockY}px`;root.classList.add('lock')}
+function unlockScroll(){if(!root.classList.contains('lock'))return;root.classList.remove('lock');document.body.style.top='';scrollTo({top:lockY,behavior:'instant'})}
 function closeSheet(){ if(sheet.open) sheet.close(); }
-sheet.addEventListener('close',()=>{document.body.style.overflow=''});
+sheet.addEventListener('close',unlockScroll);
 document.getElementById('sheetX').addEventListener('click',closeSheet);
 sheet.addEventListener('click',e=>{if(e.target===sheet)closeSheet()});   // клик по фону
 

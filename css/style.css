@@ -96,7 +96,7 @@ h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:10px}
 .foot a{opacity:.8}
 
 /* окно «подробнее» */
-.sheet{width:min(860px,94vw);max-height:92vh;margin:auto;border:1px solid var(--line);border-radius:18px;background:var(--bg2);color:var(--ash);padding:0;overflow:auto;overscroll-behavior:contain}
+.sheet{width:min(860px,94vw);max-height:92vh;max-height:92dvh;margin:auto;border:1px solid var(--line);border-radius:18px;background:var(--bg2);color:var(--ash);padding:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .sheet::backdrop{background:rgba(8,2,4,.75);backdrop-filter:blur(4px)}
 .sheet[open]{animation:sheetIn .35s var(--ease)}
 @keyframes sheetIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
@@ -139,7 +139,8 @@ h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:10px}
   .cta .btn{flex:1 1 auto}
   .dock{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(20,6,10,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
   .dock .btn{height:48px}
-  .sheet{width:100vw;max-width:100vw;max-height:94vh;margin:auto 0 0;border-radius:18px 18px 0 0;border-bottom:0}
+  .sheet{width:100vw;max-width:100vw;max-height:90vh;max-height:calc(100dvh - 40px);margin:auto 0 0;border-radius:18px 18px 0 0;border-bottom:0}
+  .sheet .sheet-body{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
   .sheet[open]{animation:sheetUp .4s var(--ease)}
   .sheet .cta .btn{flex:1 1 100%}
   .foot-in{flex-direction:column;align-items:flex-start}
@@ -291,3 +292,7 @@ html.js .feats.in .ic svg [pathLength]{stroke-dashoffset:0}
 @media (max-width:600px){.terms{padding:18px}.terms ul{flex-direction:column}}
 .sheet-terms{font-size:14px;color:var(--ash);margin:0 0 16px}
 .sheet-terms b{color:var(--ink);font-weight:600}
+
+/* блокировка прокрутки страницы под окном (iOS) */
+html.lock,html.lock body{overflow:hidden;overscroll-behavior:none}
+html.lock body{position:fixed;left:0;right:0;width:100%}
